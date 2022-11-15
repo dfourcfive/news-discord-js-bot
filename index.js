@@ -23,9 +23,14 @@ client.on("messageCreate", message => {
     console.log(message.cleanContent);
     console.log("messageCreate");
     if (message.content === "$New") {
-      console.log('here')
       getNews().then( async news =>  {
-          await message.channel.send(news['title'])
+          if(news != null){
+            if(news['image_url'] != null){
+              await message.channel.send(news['image_url']+"\n"+news['title']);
+            }else{
+              await message.channel.send(news['title']);
+            }
+          }
       });
       }
 });
